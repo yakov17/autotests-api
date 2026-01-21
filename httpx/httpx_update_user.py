@@ -1,9 +1,7 @@
 import httpx
 from facker import fake_info
 
-
 payload = fake_info()
-
 
 response_user = httpx.post('http://localhost:8000/api/v1/users', json=payload)
 response_user_data= response_user.json()
