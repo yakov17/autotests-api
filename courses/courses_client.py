@@ -6,15 +6,15 @@ class GetCoursesQueryDict(TypedDict):
     """
         Описание структуры запроса на получение списка курсов.
         """
-    query : str
+    userId : str
 
 class CreateCourseRequestDict(TypedDict):
     """
        Описание структуры запроса на создание курса.
        """
     title : str
-    maxScore : str
-    minScore : str
+    maxScore : int
+    minScore : int
     description : str
     estimatedTime : str
     previewFileId : str
@@ -52,7 +52,7 @@ class CoursesClient(APIClient):
                 """
         return self.get(f'api/v1/courses/{course_id}')
 
-    def create_course_api(self, reqeust : CreateCourseRequestDict) -> Response:
+    def create_course_api(self, request : CreateCourseRequestDict) -> Response:
         """
                 Метод создания курса.
 
@@ -60,9 +60,9 @@ class CoursesClient(APIClient):
                 previewFileId, createdByUserId.
                 :return: Ответ от сервера в виде объекта httpx.Response
                 """
-        return self.post('api/v1/courses', data = reqeust)
+        return self.post('api/v1/courses', json = request)
 
-    def update_courses_api(self, exercise_id : str, request : UpdateCourseRequestDict) -> Response:
+    def update_courses_api(self, course_id : str, request : UpdateCourseRequestDict) -> Response:
         """
                 Метод обновления курса.
 
@@ -70,13 +70,14 @@ class CoursesClient(APIClient):
                 :param request: Словарь с title, maxScore, minScore, description, estimatedTime.
                 :return: Ответ от сервера в виде объекта httpx.Response
                 """
-        return self.patch(f'api/v1/exercises/{exercise_id}', request)
+        return self.patch(f'api/v1/exercises/{course_id}', json = request)
 
-    def delete_course_api(self, exercise_id : str) -> Response:
+    def delete_course_api(self, course_id : str) -> Response:
         """
                 Метод удаления курса.
+
 
                 :param course_id: Идентификатор курса.
                 :return: Ответ от сервера в виде объекта httpx.Response
                 """
-        return self.delete(f'api/v1/exercises/{exercise_id}')
+        return self.delete(f'api/v1/exercises/{course_id}')
