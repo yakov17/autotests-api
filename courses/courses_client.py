@@ -120,6 +120,7 @@ class CoursesClient(APIClient):
         return response.json()
 
 
+
 def get_courses_client(user: AuthenticationUserDict) -> CoursesClient:
     """
     Функция создаёт экземпляр CoursesClient с уже настроенным HTTP-клиентом.
