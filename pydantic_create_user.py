@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field, EmailStr
 import uuid
 
 class UserSchema(BaseModel):
-    id : str = Field(default_factory = lambda: str(uuid.uuid4()))
+    id : str
     email : EmailStr
     last_name : str = Field(alias = 'lastName')
     first_name : str = Field(alias = 'firstName')
